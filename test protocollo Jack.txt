@@ -1,0 +1,4 @@
+test messaggio
+
+
+<{"id":127843612,"values":[{"GSR":25,"TIMESTAMP":134567890,"TEMPERATURE":40.0}]}>

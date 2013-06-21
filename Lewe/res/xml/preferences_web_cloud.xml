@@ -1,0 +1,52 @@
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory 
+        android:title="@string/preference_activity_web_cloud_category_title_enabled" >
+    
+    	<CheckBoxPreference
+	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_ENABLED"
+	        android:title="@string/preference_activity_web_cloud_enabled_title"
+	        android:summary="@string/preference_activity_web_cloud_enabled_summary"
+	        android:defaultValue="@string/SHARED_PREFERENCES_WEB_CLOUD_ENABLED_DEFAULT" />
+    	
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/preference_activity_web_cloud_category_title_wifi" >
+    
+    	<CheckBoxPreference
+	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_ONLY_ON_WIFI"
+	        android:title="@string/preference_activity_web_cloud_only_on_wifi_title"
+	        android:summary="@string/preference_activity_web_cloud_only_on_wifi_summary"
+	        android:defaultValue="@string/SHARED_PREFERENCES_WEB_CLOUD_ONLY_ON_WIFI_DEFAULT" />
+    	
+    </PreferenceCategory>
+    
+    <PreferenceCategory 
+        android:title="@string/preference_activity_web_cloud_category_title_data" >
+    
+    	<EditTextPreference
+	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_EMAIL"
+	        android:title="@string/preference_activity_web_cloud_email_title"
+	        android:summary="@string/preference_activity_web_cloud_email_summary" 
+	        android:defaultValue="ale@ale.it" />
+    	
+    	<EditTextPreference
+	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_PASSWORD"
+	        android:title="@string/preference_activity_web_cloud_password_title"
+	        android:summary="@string/preference_activity_web_cloud_password_summary" 
+	        android:defaultValue="alepas1105" />
+    	
+    	<EditTextPreference
+	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_URL"
+	        android:title="@string/preference_activity_web_cloud_url_title"
+	        android:summary="@string/preference_activity_web_cloud_url_summary" 
+	        android:defaultValue="@string/SHARED_PREFERENCES_WEB_CLOUD_URL_DEFAULT"/>
+    	
+    </PreferenceCategory>
+    
+    
+    
+    
+    
+</PreferenceScreen>

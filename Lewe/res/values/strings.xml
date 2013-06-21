@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	
+    <!-- Stringhe default -->
+    <string name="app_name">Lewe</string>
+    <string name="action_settings">Settings</string>
+
+
+	<!-- alert dialog no bt -->
+    <string name="alert_dialog_no_bt">Lewe richiede l\'uso del Bluetooth! Abilitarlo per usare questa applicazione.</string>
+    <string name="alert_dialog_ok">OK</string>
+    
+    
+    
+    <!-- Notifica -->
+    <string name="notification_title">Lewe</string>
+    <string name="notification_not_connected">Lewe non connesso</string>
+    <string name="notification_connected">Lewe connesso</string>
+    <string name="notification_connecting">Lewe in connessione...</string>
+    
+    
+    <!-- chart activity -->
+    <string name="sensor_icon_temperature_title">Temperatura</string>
+    <string name="sensor_icon_gsr_title">GSR</string>
+    <string name="sensor_x_title">Data</string>
+    <string name="sensor_grs_y_title">GSR</string>
+    <string name="sensor_temperature_y_title">Temperatura</string>
+    <string name="sensor_gsr_icon_title">GSR</string>
+    <string name="sensor_temperature_icon_title">Temperatura</string>
+    <string name="sensor_value_not_available">NA</string>
+    
+    
+    
+    <!-- stringhe per activity preference exit -->
+    <string name="preferences_activity_exit_title">Esci</string>
+    <string name="preferences_activity_exit_summary">Esci dall\'applicazione</string>
+    
+    
+    <!-- stringhe per activity preference alarms -->
+    <string name="preferences_activity_alarms_title">Allarmi</string>
+    <string name="preferences_activity_alarms_summary">Impostazioni Allarmi</string>
+    
+    
+    <!-- stringhe per activity preference notification -->
+    <string name="preferences_activity_notifications_title">Notifiche</string>
+    <string name="preferences_activity_notifications_summary">Impostazioni Notifiche</string>
+    
+    
+    <!-- stringhe per activity preference main -->
+    <string name="preferences_activity_main_title">Impostazioni</string>
+    <string name="menu_settings_title">Impostazioni</string>
+     
+    
+    <!-- stringhe per activity preference lewe -->
+    <string name="preferences_activity_lewe_title">Lewe</string>
+    <string name="preferences_activity_lewe_summary">Impostazioni Lewe</string>
+    <string name="preference_activity_lewe_name_title">Nome device Lewe Associato</string>
+    <string name="preference_activity_lewe_switch">Ricerca device Lewe</string>
+    
+    
+    <!-- stringhe per activity preference web cloud -->
+    <string name="preferences_activity_web_cloud_title">Web Cloud</string>
+    <string name="preferences_activity_web_cloud_summary">Impostazioni Web Cloud</string>
+    
+    <string name="preference_activity_web_cloud_category_title_wifi">Wifi</string>
+    <string name="preference_activity_web_cloud_only_on_wifi_title">Solo Wify</string>
+    <string name="preference_activity_web_cloud_only_on_wifi_summary">Upload dei dati solo su Wifi</string>
+    
+    <string name="preference_activity_web_cloud_category_title_data">Dati accesso Web Cloud</string>
+    <string name="preference_activity_web_cloud_email_title">E-mail</string>
+    <string name="preference_activity_web_cloud_email_summary">E-mail di accesso al Web Cloud</string>
+    <string name="preference_activity_web_cloud_password_title">Password</string>
+    <string name="preference_activity_web_cloud_password_summary">Password di accesso al Web Cloud</string>
+    <string name="preference_activity_web_cloud_url_title">URL Web Cloud</string>
+    <string name="preference_activity_web_cloud_url_summary">URL del Web Cloud</string>
+    
+    <string name="preference_activity_web_cloud_category_title_enabled">Abilita Web Cloud</string>
+    <string name="preference_activity_web_cloud_enabled_title">Usa Web Cloud</string>
+    <string name="preference_activity_web_cloud_enabled_summary">Abilita il Web Cloud per salvare i dati online</string>
+    
+    
+    
+    
+    <!-- SHARED PREFERENCES DEFAULT VALUE-->
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_URL_DEFAULT">http://app.lewe.tk</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_ONLY_ON_WIFI_DEFAULT">false</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_ENABLED_DEFAULT">false</string>
+    
+    <!-- STRINGHE PER KEY SHARED PREFERENCES -->
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_ENABLED">shared_preferences_web_cloud_enabled</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_ONLY_ON_WIFI">shared_preferences_web_cloud_only_on_wifi</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_EMAIL">shared_preferences_web_cloud_email</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_PASSWORD">shared_preferences_web_cloud_password</string>
+    <string name="SHARED_PREFERENCES_WEB_CLOUD_URL">shared_preferences_web_cloud_url</string>
+    
+    <!-- STRINGHE PER CHIAVI ACTIVITY-->
+    <string name="PREFERENCE_ACTIVITY_LEWE">com.lewe.app.activity.PREFERENCES_LEWE_ACTIVITY</string>
+    <string name="PREFERENCE_ACTIVITY_WEB_CLOUD">com.lewe.app.activity.PREFERENCES_WEB_CLOUD_ACTIVITY</string>
+    <string name="PREFERENCE_ACTIVITY_EXIT">com.lewe.app.activity.EXIT</string>
+    
+    
+    <!-- STRINGA INIZIO DEVICE LEWE -->
+    <string name="DEVICE_LEWE_NAME_PATTERN">LEWE_</string>
+    
+
+</resources>
