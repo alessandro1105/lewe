@@ -1,0 +1,48 @@
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:title="@string/preferences_activity_lewe_title"
+        android:summary="@string/preferences_activity_lewe_summary" >
+        
+        <intent android:action="@string/PREFERENCE_ACTIVITY_LEWE"></intent>
+  			 
+    </PreferenceScreen>
+    
+   <!-- <PreferenceScreen
+        android:id="@+id/preferences_alarms"
+        android:key="preferences_alarms"
+        android:title="@string/preferences_alarms_title"
+        android:summary="@string/preferences_alarms_summary"
+        android:persistent="false">
+        
+  			 
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:id="@+id/preferences_notifications"
+        android:key="preferences_notifications"
+        android:title="@string/preferences_notifications_title"
+        android:summary="@string/preferences_notifications_summary"
+        android:persistent="false">
+        
+  			 
+    </PreferenceScreen> -->
+    
+    <PreferenceScreen
+        android:title="@string/preferences_activity_web_cloud_title"
+        android:summary="@string/preferences_activity_web_cloud_summary" >
+        
+       <intent android:action="@string/PREFERENCE_ACTIVITY_WEB_CLOUD"></intent>
+  			 
+    </PreferenceScreen>
+    
+    <PreferenceScreen
+        android:id="@+id/exit"
+        android:key="preferences_exit"
+        android:title="@string/preferences_activity_exit_title"
+        android:summary="@string/preferences_activity_exit_summary" >
+       
+        <intent android:action="@string/PREFERENCE_ACTIVITY_EXIT"></intent>
+  			 
+    </PreferenceScreen>
+    
+</PreferenceScreen>

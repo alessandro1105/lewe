@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lewe.app"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+    
+    <!-- PERMESSI PER IL BT -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    
+    <!-- PERMESSO PER IL WIFI -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    
+    <!-- PERMESSO PER INTERNET -->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        
+        <!-- MAIN ACTIVITY -->
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" android:theme="@style/MainActivityTheme"
+            android:screenOrientation="portrait" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            
+        </activity>
+        
+        
+        <!-- ACTIVITY DEI GRAFICI -->
+        <activity android:name=".activity.ChartActivity" android:theme="@style/ChartActivityTheme"></activity>
+        
+        
+        <!-- ACTIVITY PREFERENZE -->
+        
+        <!-- Main -->
+        <activity android:name=".activity.PreferencesMainActivity" android:theme="@style/PreferencesMainActivityTheme"
+            android:screenOrientation="portrait" >
+            
+            <intent-filter>
+               <action android:name="com.lewe.app.activity.PREFERENCES_MAIN_ACTIVITY" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+        </activity>
+        
+        <!-- Lewe -->
+        <activity android:name=".activity.PreferencesLeweActivity" android:theme="@style/PreferencesLeweActivityTheme">
+            
+            <intent-filter>
+               <action android:name="com.lewe.app.activity.PREFERENCES_LEWE_ACTIVITY" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+        </activity>
+        
+        <!-- Web Cloud -->
+        <activity android:name=".activity.PreferencesWebCloudActivity" android:theme="@style/PreferencesWebCloudActivityTheme">
+            
+            <intent-filter>
+               <action android:name="com.lewe.app.activity.PREFERENCES_WEB_CLOUD_ACTIVITY" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            
+        </activity>
+        
+        <!-- FINE ACTIVITY PREFERENZE -->
+        
+        <!-- ACTIVITY PER INTENT DI USCITA -->
+        <activity android:name=".activity.ExitActivity">
+            
+            <intent-filter>
+               <action android:name="com.lewe.app.activity.EXIT" />
+               <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>            
+            
+        </activity>
+        
+        <!-- SERVIZIO PRINCIPALE -->
+        <service android:name=".lewe.service.LeweService"></service>
+        
+        <!-- SERVIZIO BT -->
+        <service android:name=".lewe.bluetooth.service.LeweBluetoothService"></service>
+        
+        <!-- SERVIZIO PER IL DB -->
+        <service android:name=".lewe.database.service.LeweDatabaseService"></service>
+  		
+        <!-- SERVIZIO PER IL WEB CLOUD -->
+        <service android:name=".lewe.web.cloud.service.LeweWebCloudService"></service>
+        
+        
+    </application>
+
+</manifest>

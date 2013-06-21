@@ -1,0 +1,136 @@
+
+/*CSS per registrazione*/
+
+.registrationFormPasswordConfirmCorrection {
+    margin-top: -0.7em !important;
+}
+
+#registrationFormContainer {
+
+    height: auto;
+    margin: 0 auto;
+    width: 21.4em;
+	padding-top: 1em;
+}
+
+.registrationFormText {
+    float: left;
+    font-size: 1.4em;
+    width: 3.7em;
+	
+	padding-top: 0.3em;
+	
+	color: #1D1D1D;
+    font-family: 'Open Sans Condensed',sans-serif;
+}
+
+
+#registrationFormButtonContainer {
+
+    margin: 0 auto;
+    padding: 1em 0;
+    width: 8.3em;
+}
+
+
+.registrationFormInput {
+    border: 1px solid black;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 1.4em;
+    height: 1.6em;
+    margin-bottom: 0.8em;
+    padding: 0 0 0 0.2em;
+    width: 10.8em;
+}
+
+#registrationFormSubmit {
+    font-size: 1.6em;
+}
+
+#registrationFormTitle {
+    color: #1D1D1D;
+    font-family: 'Open Sans Condensed',sans-serif;
+    font-size: 2.5em;
+    margin: 0 auto 0.8em;
+    width: 8em;
+}
+
+
+#registrationFormErrorText {
+    color: red;
+    font-size: 1.7em;
+    margin: 0.8em 0;
+}
+
+
+
+/*CSS per login*/
+
+#loginFormContainer {
+
+    height: auto;
+    margin: 0 auto;
+    width: 21.4em;
+	padding-top: 1em;
+}
+
+.loginFormText {
+    float: left;
+    font-size: 1.4em;
+    width: 4em;
+	
+	padding-top: 0.3em;
+	
+	color: #1D1D1D;
+    font-family: 'Open Sans Condensed',sans-serif;
+}
+
+
+#loginFormButtonContainer {
+ 
+    margin: 0 auto;
+    padding: 1em 0;
+    width: 6.3em;
+}
+
+
+.loginFormInput {
+    border: 1px solid black;
+    border-radius: 10px 10px 10px 10px;
+    font-size: 1.4em;
+    height: 1.6em;
+    margin-bottom: 0.8em;
+    padding: 0 0 0 0.2em;
+    width: 10.8em;
+}
+
+#loginFormSubmit {
+    font-size: 1.6em;
+    margin-top: 0.7em;
+}
+
+#loginFormCookie {
+    margin-top: 1.5em;
+}
+
+#loginFormRegistration {
+    float: none !important;
+    width: 15em !important;
+}
+
+#loginFormTitle {
+    color: #1D1D1D;
+    font-family: 'Open Sans Condensed',sans-serif;
+    font-size: 2.5em;
+    margin: 0 auto 0.8em;
+    width: 9em;
+}
+
+
+#loginFormErrorText {
+    color: red;
+    font-size: 1.7em;
+    margin: 0.8em 0;
+}
+
+/*fine css login*/
