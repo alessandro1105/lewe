@@ -1,0 +1,12 @@
+<PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:id="@+id/testpref"
+        android:key="button_voicemail_category_key"
+        android:title="da fdmcfnejfn"
+        android:persistent="false">
+        
+       <intent android:action="com.lewe.app.TwoSettings"/>
+  			 
+    </PreferenceScreen>
+    
+</PreferenceScreen>

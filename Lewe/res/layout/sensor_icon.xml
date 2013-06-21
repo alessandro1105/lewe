@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/sensor_icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/sensor_icon_title"
+            style="@style/PreferencesCategoryStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="prova testo titolo" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sensor_icon_title"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+			android:background="@drawable/sensor_icon_button_background" >
+
+            <ImageView
+                android:id="@+id/sensor_icon_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gsr_logo" />
+
+            <TextView
+                android:id="@+id/sensor_icon_value"
+                style="@style/PreferencesTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/sensor_icon_logo"
+                android:layout_marginBottom="55dp"
+                android:layout_marginLeft="25dp"
+                android:layout_toRightOf="@+id/sensor_icon_logo"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="valore °C dfdgf" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</merge>

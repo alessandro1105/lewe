@@ -1,0 +1,5 @@
+
+    <resources>
+        <color name="black">#000000</color>
+        <color name="trasparent">@null</color>
+    </resources>
