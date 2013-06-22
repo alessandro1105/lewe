@@ -28,7 +28,7 @@
 							</section>
 						</div>
                         
-						
+						<!--
                         
                         <div class="3u">
 							<section>
@@ -39,7 +39,7 @@
 							</section>
 						</div>
                         
-                        <!--
+                        
 						<div class="3u">
 							<section class="last">
 								<h2>Odio et phasellus</h2>
