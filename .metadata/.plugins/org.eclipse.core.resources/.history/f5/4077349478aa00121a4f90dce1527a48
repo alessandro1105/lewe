@@ -1,0 +1,16 @@
+package com.example.servicetest;
+
+public class Message {
+	
+	String timestamp;
+	
+	int nSensor;
+	
+	String[] sensorValue;
+	
+	public Message() {
+		
+		
+	}
+
+}

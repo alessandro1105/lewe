@@ -1,0 +1,14 @@
+package com.lewe.app.thread.safe;
+
+public abstract class ThreadSafe extends Thread {
+	
+	private long TIMER_POLLING;
+	
+	private boolean stopThread;
+	
+	public ThreadSafe(long timerPolling) {
+		
+		TIMER_POLLING = timerPolling;
+	}
+
+}

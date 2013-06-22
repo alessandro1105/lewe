@@ -1,0 +1,9 @@
+package com.lewe.app.doublevalue;
+
+public class DoubleValue<T, T2> {
+	
+	public DoubleValue<T, T2>() {
+		
+	}
+
+}

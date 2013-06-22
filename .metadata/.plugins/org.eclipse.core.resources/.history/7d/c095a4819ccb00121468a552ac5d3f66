@@ -1,0 +1,34 @@
+package com.lewe.app.thread.safe;
+
+public abstract class ThreadSafe extends Thread {
+	
+	private long TIMER_POLLING; //tempo di sleep
+	
+	private boolean stopThread; //variabile che se true fa terminare naturalmente il thread
+	
+	public ThreadSafe(long timerPolling) {
+		
+		super();
+		
+		TIMER_POLLING = timerPolling;
+		
+		stopThread = true;
+	}
+	
+	public void start() {
+		
+		stopThread = false;
+		
+		super.start();
+	}
+	
+	
+	public void stop() {
+		
+		stopThread = true;
+	
+		
+		
+	}
+
+}

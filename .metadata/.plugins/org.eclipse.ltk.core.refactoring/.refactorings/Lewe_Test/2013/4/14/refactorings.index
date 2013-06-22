@@ -1,0 +1,35 @@
+1364849478994	Rename type 'IconSensor'
+1364849600290	Delete element
+1364850959100	Rename resource 'header.xml'
+1364851040522	Rename type 'HomeScreen'
+1364851600877	Delete element
+1364851616472	Rename resource 'header_home_screen.xml'
+1364851631090	Rename resource 'activity_home_screen.xml'
+1364851656061	Rename type 'HeaderHomeScreen'
+1364851665453	Rename type 'HomeScreenActivity'
+1364851776290	Delete element
+1364853008832	Rename resource 'icon_sensor.xml'
+1365096592103	Rename type 'SensorIcon'
+1365096617612	Move compilation unit
+1365096623206	Move compilation unit
+1365096661336	Rename package 'com.lewe.app.header'
+1365096672531	Move compilation unit
+1365096674744	Move compilation unit
+1365096698949	Move compilation unit
+1365096710041	Rename package 'com.lewe.app.sensor'
+1365096741028	Move compilation unit
+1365096750665	Rename package 'com.lewe.app.layout.header'
+1365096780326	Move compilation unit
+1365096802855	Move compilation unit
+1365096825083	Move compilation unit
+1365096832949	Move compilation units
+1365096836432	Delete element
+1365096839396	Delete element
+1365096859020	Rename type 'HeaderHomeActivity'
+1365096864677	Rename type 'HeaderSettingsActivity'
+1365097984384	Delete element
+1365097988349	Delete element
+1365098007840	Rename type 'Header'
+1365190723581	Rename resource 'sensor_icon.xml'
+1365190741962	Rename resource 'sensor_.xml'
+1365190756725	Delete element
