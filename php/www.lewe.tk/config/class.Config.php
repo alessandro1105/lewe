@@ -94,7 +94,10 @@
 		const _PAGE_SITE_HOWITWORKS = "how-it-works";
 		
 		/*nomi pagine site PRIVATE*/
-		const _PAGE_SITE_HOME = "home";
+		const _PAGE_SITE_HOME = "my_lewe";
+		
+		//const _PAGE_SITE_HOME = "home";
+		
 		const _PAGE_SITE_LOGOUT = "logout";
 		const _PAGE_SITE_MY_LEWE = "my_lewe";
 		const _PAGE_SITE_PUBLIC_LEWE = "public_lewe";

@@ -50,7 +50,7 @@
             
             <div class="paragraph_how-it-works">
                 <img src="/images/tel.png" class="img_how-it-works_dx" id="img_how-it-works4" />
-                <p class="paragraph5">Perché Lewe non è un banale bracciale biometrico! Con Lewe è possibile:</p>
+                <p class="paragraph5">Come funziona?</p>
                 <ol id="paragraph5-list">
                     <li class="paragraph5-list-item">Acquista il bracciale e scarica gratuitamente l’applicazione<li>
                     <li class="paragraph5-list-item">Registra un account nel cloud di Lewe<li>

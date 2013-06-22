@@ -1,4 +1,30 @@
-/*CSS per homepage*/
+/*CSS per how-it-works*/
+#title-how-it-works {
+	margin: 1em;	
+	text-align: center;
+	font-size: 2.2em !important;
+}
+
+.paragraph5-list-item {
+    list-style: disc inside none;
+    word-wrap: break-word;
+	font-size: 1.3em;
+	text-align: center;
+	margin-bottom: 0.4em;
+}
+
+.paragraph4-list-item {
+    list-style: disc inside none;
+    word-wrap: break-word;
+	font-size: 1.3em;
+	text-align: center;
+	margin-bottom: 0.4em;
+}
+
+.paragraph-list-item-strong {
+	color: #3C3C3C;
+    font-weight: bold;
+}
 
 
 #how-it-works_container {
@@ -14,93 +40,85 @@
 	overflow-x: hidden;
 }
 
-.paragraph_home {
+.paragraph_how-it-works {
 	margin: 0 1em;
     
 }
 
 
 .paragraph1 {
-    text-align: justify;
 	word-wrap: normal;
 	font-size: 1.3em;
+	text-align: center;
 }
 
 
 .paragraph2 {
-	text-align: justify;
 	word-wrap: normal;
 	font-size: 1.3em;
+	text-align: center;
 }
 
 
 .paragraph3 {
-    text-align: justify;
+
 	word-wrap: normal;
 	font-size: 1.3em;
+	text-align: center;
 }
 
 
 
 .paragraph4 {
-    text-align: justify;
+
 	word-wrap: normal;
 	font-size: 1.3em;
+	text-align: center;
+	margin-bottom: 1em;
 }
 
 
 .paragraph5 {
-    text-align: justify;
+
 	word-wrap: normal;
 	font-size: 1.3em;
+	text-align: center;
+	margin-bottom: 1em;
 }
 
 
-.paragraph6 {
-    text-align: justify;
-	word-wrap: normal;
-	font-size: 1.3em;
-}
-
-
-
-#img_home1 {
+#img_how-it-works1 {
     margin: 0 auto;
     width: 17em;
 	display: block;
 }
 
 
-#img_home2 {
+#img_how-it-works2 {
     margin: 0 auto;
     width: 17em;
 	display: block;;
 }
 
-#img_home3 {
+#img_how-it-works3 {
     margin: 0 auto;
     width: 17em;
 	display: block;
 }
 
 
-#img_home4 {
+#img_how-it-works4 {
     margin: 0 auto;
     width: 17em;
 	display: block;
 }
 
-#img_home5 {
-    margin: 0 auto;
-    width: 17em;
-	display: block;
-}
 
-.img_home_sx {
+.img_how-it-works_sx {
     float: none;
 }
 
-.img_home_dx {
+.img_how-it-works_dx {
     float: none;
 }
 
@@ -469,7 +487,15 @@
 		}
 
 		#footer-wrapper li {
+			font-size: 1.3em;
 			line-height: 2.5em;
+			text-align: center;
+			margin-top: -0.5em;
+		}
+		
+		#footer-wrapper h2 {
+
+			text-align: center;
 		}
 
 		#footer-wrapper a
