@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move element &apos;download.jpg&apos; to &apos;drawable-hdpi&apos;&#x0D;&#x0A;- Original project: &apos;TestApp&apos;&#x0D;&#x0A;- Destination element: &apos;drawable-hdpi&apos;&#x0D;&#x0A;- Original element: &apos;download.jpg&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move file" element1="res/drawable-hdpi/download.jpg" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1364853033281" target="/Lewe/res/drawable-hdpi" units="0" version="1.0"/>
-</session>

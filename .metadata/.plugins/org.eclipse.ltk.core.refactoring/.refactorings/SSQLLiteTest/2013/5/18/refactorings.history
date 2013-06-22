@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;DatabaseHelper.java&apos; to &apos;Lewe/src/com.lewe.app&apos;&#x0D;&#x0A;- Original project: &apos;SSQLLiteTest&apos;&#x0D;&#x0A;- Destination element: &apos;Lewe/src/com.lewe.app&apos;&#x0D;&#x0A;- Original element: &apos;DatabaseHelper.java&apos;" description="Copy compilation unit" destination="=Lewe/src&lt;com.lewe.app" element1="/src&lt;{DatabaseHelper.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1367477067469" units="1" version="1.0"/>
-</session>

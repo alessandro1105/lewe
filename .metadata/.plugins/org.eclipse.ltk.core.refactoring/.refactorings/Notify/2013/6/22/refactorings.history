@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;Notify/res/drawable-hdpi/gsr_logo.jpg&apos; to &apos;icon.jpg&apos;" description="Rename resource &apos;gsr_logo.jpg&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="res/drawable-hdpi/gsr_logo.jpg" name="icon.jpg" stamp="1370199379343" updateReferences="true"/>
-</session>

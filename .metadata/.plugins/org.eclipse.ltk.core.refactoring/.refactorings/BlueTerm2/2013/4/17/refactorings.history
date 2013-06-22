@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;device_name.xml&apos; to &apos;layout&apos;&#x0D;&#x0A;- Original project: &apos;BlueTerm2&apos;&#x0D;&#x0A;- Destination element: &apos;layout&apos;&#x0D;&#x0A;- Original element: &apos;device_name.xml&apos;" description="Copy file" element1="res/layout/device_name.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1367011173921" target="/Lewe/res/layout" units="0" version="1.0"/>
-</session>
