@@ -555,7 +555,7 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
             // Keep listening to the InputStream while connected
             while (!stop) {
             	
-            	while (!pause /*&& !stop*/) {
+            	while (!pause && !stop) {
             		
             		setBufferState(false); //buffer occupato in operazioni di scrittura
             		
@@ -588,6 +588,8 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
                     	
                     	                
             		} //fine sincronizzazione
+            		
+            		Logger.e("BSS", "paused");
                      
             	} //fine ciclo riempimento buffer
             	
@@ -595,11 +597,11 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
             	
             		setBufferState(true); //indico che il buffer è disponibile
             	
-            	//Logger.e("BSS", "paused");
+            	Logger.e("BSS", "paused");
             	
             } //fine cliclo vuoto
             
-            try {
+            /*try {
             	
             	Logger.e("BSS", "chiusura socket...");
             	
@@ -610,7 +612,7 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
             } catch (IOException e) {
                 Logger.e(TAG, "chiusura socket fallita!", e);
             }
-            
+            */
         }
 
         
@@ -628,23 +630,25 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
         	
            stop = true; //richiedo la chiusura del socket appena possibile
            
-           /*
+           Logger.e("BSS", "stopping..");
+           
+           
            try {
            	
-           	Logger.e("BSS", "closing socket...");
+        	   Logger.e("BSS", "chiusura socket...");
            	
                mmSocket.close(); //chiudo il socket
                
-               Logger.e("BSS", "socket closed");
+               Logger.e("BSS", "socket chiuso");
                
            } catch (IOException e) {
-               Logger.e(TAG, "close() of connect socket failed", e);
+               Logger.e(TAG, "chiusura socket fallita!", e);
            }
            
            
            
            Logger.e("BSS", "stopped");
-        */
+        
         }
         
         
