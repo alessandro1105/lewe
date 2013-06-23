@@ -52,7 +52,14 @@
 				$objJTM->stop(); //stoppo JTM;
 						
 			} else {
-				header("Location: http://www.lewe.tk");	
+			
+				$strUrl = $this->objRequest->_SERVER['SERVER_NAME'];
+	
+				$strUrl = str_replace("app", "www", $strUrl); 
+				
+				echo $strUrl;
+			
+				header("Location: http://" . $strUrl);	
 			}
 			
 		}

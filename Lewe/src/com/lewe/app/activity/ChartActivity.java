@@ -429,14 +429,17 @@ public class ChartActivity extends Activity {
 		mCurrentSeries.add(nItemAdded, value); //aggiungo il dato al grafico
 		
 		
-		if (nItemAdded == 5) {
-			
-			mRenderer.setXLabelsAngle(20);
-			
-		} else if (mRenderer.getXLabelsAngle() < 90) {
-			
-			mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
-			
+		if (nItemAdded > 4) {
+		
+			if (nItemAdded == 5) {
+				
+				mRenderer.setXLabelsAngle(20);
+				
+			} else if (mRenderer.getXLabelsAngle() < 90) {
+				
+				mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
+				
+			}
 		}
 		
 		
@@ -456,14 +459,17 @@ public class ChartActivity extends Activity {
 		mCurrentSeries.add(nItemAdded, value); //aggiungo il grafico al dato
 		
 		
-		if (nItemAdded == 5) {
+		if (nItemAdded > 4) {
 			
-			mRenderer.setXLabelsAngle(20);
-			
-		} else if (mRenderer.getXLabelsAngle() < 90) {
-			
-			mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
-			
+			if (nItemAdded == 5) {
+				
+				mRenderer.setXLabelsAngle(20);
+				
+			} else if (mRenderer.getXLabelsAngle() < 90) {
+				
+				mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
+				
+			}
 		}
 		
 	}
