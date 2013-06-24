@@ -166,6 +166,13 @@ double getTemperature() { //preleva il valore della temperatura da LM35 con 1 ci
   
   double temp = analogRead(TEMP_PIN); //prelevo la lettura dal sensore
   
+  if (DEBUG) {
+    Serial.print("Temperature tick: ");   
+    Serial.println(temp); 
+  }
+  
+  
+  
   temp = (temp * 1.1 / 1023.0) * 100.0; //converto la temperatura letta in gradi
   
   
@@ -436,7 +443,7 @@ void setup() {
 
 void loop() {
   
-  
+  /*
   //tickLCD();
   
   wakeupSensor();
@@ -447,11 +454,11 @@ void loop() {
   
   //getTemperature();
   
-  //delay(1000);
+  delay(1000);
   
- /* */
+  */
   
-  /*
+  
   tickLCD();
   
   
@@ -481,5 +488,5 @@ void loop() {
     wakeupSensor();
    
   }
-*/
+
 }
