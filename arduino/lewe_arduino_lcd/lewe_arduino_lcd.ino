@@ -435,29 +435,23 @@ void setup() {
   
 
 void loop() {
-  /*
+  
+  
+  //tickLCD();
+  
   wakeupSensor();
   
-  Serial.println(getTemperature());
+  DoubleWrapper dw(getTemperature()); //inserisco la temperatura nel wrapper
   
-  Serial.println(getGSR());
+  Serial.println(dw.getString()); //creo un nuovo wrapper con la temperatura convertita in stringa con un decimale
   
-  delay(1000);
+  //getTemperature();
   
-  Serial.print("GSR: ");
-  Serial.println(getGSR());
+  //delay(1000);
   
-  Serial.print("Temp: ");
-  Serial.println(getTemperature());
+ /* */
   
-  Serial.println();
-  Serial.println();
-  
-  delay(1000);
-  
-  */
-  
-  
+  /*
   tickLCD();
   
   
@@ -487,5 +481,5 @@ void loop() {
     wakeupSensor();
    
   }
-
+*/
 }
