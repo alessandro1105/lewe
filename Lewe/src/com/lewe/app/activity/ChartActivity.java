@@ -353,10 +353,10 @@ public class ChartActivity extends Activity {
 		mRenderer.setXTitle("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + getString(R.string.sensor_x_title)); //y titolo
 		mRenderer.setYTitle(getString(R.string.sensor_temperature_y_title)); //x titolo
 		
-		mRenderer.setYAxisMin(34); //min y
-		mRenderer.setYAxisMax(43); //max y
+		mRenderer.setYAxisMin(30); //min y
+		mRenderer.setYAxisMax(45); //max y
 		
-		mRenderer.setYLabels(18); //n label (n = (max-Min)/scala)
+		mRenderer.setYLabels(15); //n label (n = (max-Min)/scala)
 		
 		mCurrentRenderer.setColor(Color.RED);
 		

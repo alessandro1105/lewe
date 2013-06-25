@@ -109,11 +109,40 @@ public class LeweService extends Service {
 		    			//inoltro l'intent dati ricevuto da LBS a tutti quelli che devono riceve i dati a cui resta trasparente la fonte
 		    			
 		    			
+		    			//aggiorno i dati per la gui main
+		    			Bundle extras = intentDataReceived.getExtras();
+						
+						SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(LeweService.this).edit(); //editor preferenze
+								
+						//verifico se sono arrivati nuovi dati per sensore temperatura e li imposto
+						if (extras.containsKey(Config.SENSOR_KEY_TEMPERATURE)) {
+							//sensorTemperature.setValue("" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "°C");
+									
+							sharedPreferencesEditor.putString(Config.SENSOR_KEY_TEMPERATURE, "" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + " °C");		
+									
+						}
+								
+						//verifico se sono arrivati nuovi dati per sensore gsr e li imposto
+						if (extras.containsKey(Config.SENSOR_KEY_GSR)) {
+							//sensorGsr.setValue("" + extras.getLong(Config.SENSOR_KEY_GSR) + " %");
+							
+							sharedPreferencesEditor.putString(Config.SENSOR_KEY_GSR, "" + extras.getLong(Config.SENSOR_KEY_GSR ) + " %");
+						}
+						
+						sharedPreferencesEditor.commit(); //salvo le preferenze
+		    			
+						
+						
+						
+		    			
+		    			//inoltro i dati ricevuti
 		    			Intent intent = new Intent(LeweService.INTENT_FILTER_NEW_DATA);
 		    			
 		    			intent.putExtras(intentDataReceived.getExtras());
 		    			
 		    			sendBroadcast(intent);
+		    			
+		    					    			
 		    			
 		    			Logger.d("LS", "intent data sent");
 		    				
