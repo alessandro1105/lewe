@@ -33,8 +33,8 @@ Copyright [2013] [Lewe]
 //COSTANTI
 
 //GENERALI
-const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
-//const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
+//const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
+const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
 
 const int DEBUG = 1; //1 stampa info di debug, 0 non stampa niente
 
