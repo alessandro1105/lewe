@@ -741,7 +741,7 @@ public class LeweService extends Service {
 				querySQL = "INSERT INTO " + Database.TABLE_SENSOR + "(" + Database.FIELD_SENSOR_NAME + "," + Database.FIELD_SENSOR_VALUE;
 				querySQL += "," + Database.FIELD_TIMESTAMP + "," + Database.FIELD_UPDATED + ") VALUES(";
 				
-				querySQL += "\"" + Config.SENSOR_KEY_TEMPERATURE + "\"" + ",\"" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "\"," + extras.getLong(Config.SENSOR_KEY_TIMESTAMP);
+				querySQL += "\"" + Config.SENSOR_KEY_TEMPERATURE + "\"" + ",\"" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "\"," + (extras.getLong(Config.SENSOR_KEY_TIMESTAMP) + 43200);
 				
 				querySQL += ",0);";
 				
@@ -760,7 +760,7 @@ public class LeweService extends Service {
 				querySQL += "INSERT INTO " + Database.TABLE_SENSOR + "(" + Database.FIELD_SENSOR_NAME + "," + Database.FIELD_SENSOR_VALUE;
 				querySQL += "," + Database.FIELD_TIMESTAMP + "," + Database.FIELD_UPDATED + ") VALUES(";
 				
-				querySQL += "\"" + Config.SENSOR_KEY_GSR + "\"" + ",\"" + extras.getLong(Config.SENSOR_KEY_GSR) + "\"," + extras.getLong(Config.SENSOR_KEY_TIMESTAMP);
+				querySQL += "\"" + Config.SENSOR_KEY_GSR + "\"" + ",\"" + extras.getLong(Config.SENSOR_KEY_GSR) + "\"," + (extras.getLong(Config.SENSOR_KEY_TIMESTAMP) + 43200);
 				
 				querySQL += ",0);";
 				

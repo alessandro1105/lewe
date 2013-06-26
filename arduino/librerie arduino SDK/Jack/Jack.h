@@ -63,6 +63,7 @@ class JData {
 		static const int JDATA = 4;
 		
 		JData();
+		~JData(); //distruttore
 		
 		//adder
 		void addLong(String key, long value);
@@ -167,7 +168,11 @@ class Jack {
 		
 		Jack(JTrasmissionMethod * mmJTM, void (* onReceive) (JData *), void (* onReceiveAck) (JData *), long (* getTimestamp) (), long timeBeforeResend); //tempo per il reinvio
 		
-		Jack(JTrasmissionMethod * mmJTM, void (* onReceive) (JData *), void (* onReceiveAck) (JData *), long (* getTimestamp) (), int sendOneTime); //indica se effettuare il reinvio dei mex se non confermati
+		//Jack(JTrasmissionMethod * mmJTM, void (* onReceive) (JData *), void (* onReceiveAck) (JData *), long (* getTimestamp) (), int sendOneTime); //indica se effettuare il reinvio dei mex se non confermati
+		
+		
+		~Jack(); //distruttore
+		
 		
 		void start(); //avvia il polling
 		
