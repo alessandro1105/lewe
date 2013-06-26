@@ -1,5 +1,3 @@
-#include <MemoryFree.h>
-
 /*
 Copyright [2013] [Lewe]
 
@@ -35,8 +33,8 @@ Copyright [2013] [Lewe]
 //COSTANTI
 
 //GENERALI
-//const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
-const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
+const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
+//const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
 
 const int DEBUG = 1; //1 stampa info di debug, 0 non stampa niente
 
@@ -53,7 +51,7 @@ const int TEMP_PIN = A0; //pin sensore
 const int GSR_SWITCH_PIN = 7; //pin per comandare l'accensione
 const int GSR_PIN = A1; //pin del sensore
 //commentato senza analogReference
-const int GSR_MIN = 620;//220; //valore minimo
+const int GSR_MIN = 620;//220; //valore minimo aq
 const int GSR_MAX = 1023;//640; //valore max
 
 
@@ -160,6 +158,11 @@ long getGSR() { //preleva il valore del sensore GSR
 
   gsr = (int) (gsr * 100.0 / (GSR_MAX - GSR_MIN));
  
+  
+  if (DEBUG) {
+    Serial.print("GSR: ");   
+    Serial.println(gsr);  
+  }
   
   return gsr; //ritorno il valore in percentuale
 }
@@ -436,41 +439,10 @@ void setup() {
  
   timeLastSurvey = millis(); //imposto la variabile con il tempo così il prossimo invio è tra 10 
   
-  
-  
-  
-  wakeupSensor();
-  
-  
-  Serial.print("memoria prima rilevazione: ");
-  Serial.println(freeMemory());
-  
-  getSurvey(); //prelevo le rilevazioni e le invio
-  
-  
-  Serial.print("memoria dopo rilevazione: ");
-  Serial.println(freeMemory());
-  
 }
   
 
 void loop() {
-  
-  /*
-  //tickLCD();
-  
-  wakeupSensor();
-  
-  DoubleWrapper dw(getTemperature()); //inserisco la temperatura nel wrapper
-  
-  Serial.println(dw.getString()); //creo un nuovo wrapper con la temperatura convertita in stringa con un decimale
-  
-  //getTemperature();
-    
-  delay(1000);
-  
-  */
-  
   
   tickLCD();
   
@@ -478,7 +450,6 @@ void loop() {
   jack->loop(); //funzione che invia i messaggi e riceve i messaggi (simulazione thread)
   
   
-  /*
   long now = millis();
   
   if (now - timeLastSurvey > INTERVAL_BETWEEN_SURVEY) { //scaduto il tempo di attesa tra invii (invio la rilevazione)
@@ -503,5 +474,6 @@ void loop() {
     wakeupSensor();
    
   }
-  */
+  
+  
 }

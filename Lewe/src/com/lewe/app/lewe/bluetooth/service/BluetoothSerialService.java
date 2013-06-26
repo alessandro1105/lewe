@@ -409,7 +409,7 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 			
 			messageBuffer = messageBuffer.substring(nCharIncorrect); //elimino i caratteri errati prima del mex
 						
-			if (messageBuffer.length() > 0 && messageBuffer.charAt(0) == MESSAGE_START_CHARACTER) { //messaggio con almeno 1 carattere e trovato il carattere di inizio messaggio
+			if (messageBuffer.length() > 0 && messageBuffer.charAt(0) == MESSAGE_START_CHARACTER) { //messaggio con almeno 1 carattere e primo carattere è il carattere di inizio messaggio
 				
 				
 				for (int i = nCharIncorrect + 1; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_FINISH_CHARACTER; i++) {

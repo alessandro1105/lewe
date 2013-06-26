@@ -150,14 +150,14 @@ public class ChartActivity extends Activity {
 				
 					if (extras.containsKey(Config.SENSOR_KEY_TEMPERATURE) && Config.SENSOR_KEY_TEMPERATURE.equals(sensorType)) { //dato temperatura
 					
-						addDataToChart(extras.getLong(Config.SENSOR_KEY_TIMESTAMP) + 43200, extras.getDouble(Config.SENSOR_KEY_TEMPERATURE)); //aggiungo dato
+						addDataToChart(extras.getLong(Config.SENSOR_KEY_TIMESTAMP), extras.getDouble(Config.SENSOR_KEY_TEMPERATURE)); //aggiungo dato
 						
 						Logger.d("CA", "intent new data temperature");
 					
 					
 					} else if (extras.containsKey(Config.SENSOR_KEY_GSR) && Config.SENSOR_KEY_GSR.equals(sensorType)) { //dato gsr
 					
-						addDataToChart(extras.getLong(Config.SENSOR_KEY_TIMESTAMP) + 43200, extras.getLong(Config.SENSOR_KEY_GSR)); //aggiungo dato
+						addDataToChart(extras.getLong(Config.SENSOR_KEY_TIMESTAMP), extras.getLong(Config.SENSOR_KEY_GSR)); //aggiungo dato
 						
 						Logger.d("CA", "intent new data gsr");
 					}

@@ -18,10 +18,10 @@ class HashType {
 		
 		~HashType(){ //distruttore
 		
-			Serial.println("HashType destructing...");
+			//Serial.println("HashType destructing...");
 			//hashCode.~hash();
 			//hashCode.~hash();
-			Serial.println("HashType destruct");
+			//Serial.println("HashType destruct");
 		}
 	
 		HashType(hash code, map value): hashCode(code), mappedValue(value){}
@@ -75,11 +75,11 @@ class HashNode {
 		}
 		
 		~HashNode() { //distruttore
-			Serial.println("HashNode destructing...");
+			//Serial.println("HashNode destructing...");
 			
 			delete hashType;
 			
-			Serial.println("HashNode destruct");
+			//Serial.println("HashNode destruct");
 		}
 		
 		HashType<hash, map> * getHashType() {
@@ -154,7 +154,9 @@ class HashMap {
 		
 		void remove(HashNode<hash, map> * pointer) { //rimuove l'elemento selezionato
 		
-			if (size < 2) { //1 elemento presente 1 elemento da eliminare
+			if (size == 1) { //1 elemento presente 1 elemento da eliminare
+				
+				//Serial.println("1 solo: remove p");
 				
 				start = finish = 0;
 				
@@ -207,9 +209,9 @@ class HashMap {
 		
 		~HashMap(){	//distruttore
 		
-			Serial.println("HashMap destructing...");
-			Serial.print("n: ");
-			Serial.println(length());
+			//Serial.println("HashMap destructing...");
+			//Serial.print("n: ");
+			//Serial.println(length());
 			
 			if (moveToFirst()) {
 				
@@ -222,7 +224,7 @@ class HashMap {
 			}
 			
 			
-			Serial.println("HashMap destruct");
+			//Serial.println("HashMap destruct");
 			
 		}
 		
@@ -386,7 +388,9 @@ class HashMap {
 		
 			if (position != 0) {
 			
-				if (size < 2) { //1 ele 1 da rimuovere
+				if (size == 1) { //1 ele 1 da rimuovere					
+					
+					//Serial.println("1 solo: remove");
 					
 					remove(position);
 					
@@ -398,7 +402,7 @@ class HashMap {
 					
 						remove(position);
 					
-						position = 0;
+						position = start;
 				
 					} else {
 					
@@ -409,6 +413,7 @@ class HashMap {
 					}
 				
 				}
+			
 			}
 			
 		}

@@ -1,12 +1,5 @@
 #include "Jack.h"
 
-
-
-#include <MemoryFree.h>
-
-
-
-
 //JDATA WRAPPER
 
 JDataWrapper::JDataWrapper(JData * value) { //construttore/incapsulatore
@@ -40,12 +33,11 @@ JData::JData() { //costruttore
 	
 }
 
-//distruttore
-JData::~JData() { //costruttore
+JData::~JData() { //distruttore
 	
-	Serial.println("JDATA destructing...");
+	//Serial.println("JDATA destructing...");
 	
-	Serial.println("elimino data...");
+	//Serial.println("elimino data...");
 	if (data->moveToFirst()) { //elimino tutte le classi wrapper
 		
 		do {
@@ -82,16 +74,14 @@ JData::~JData() { //costruttore
 		
 		} while (data->moveToNext());
 		
-	}
-	
+	}	
 	delete data; //elimino la struttura contenuta in HashMap
 	
-	
-	Serial.println("elimino indexes...");
+	//Serial.println("elimino indexes...");
 	delete indexes; //elimino la struttura contenuta in HashMap
 	
+	//Serial.println("JDATA destruct");
 	
-	Serial.println("JDATA destruct");
 }
 
 //add wrapper
@@ -390,7 +380,6 @@ Jack::~Jack() {
 
 	delete sendMessageBuffer; //buffer per i messaggi da inviare
 	delete sendMessageTimer; //buffer per i timer per i mex da inviare
-		
 	delete sendMessageBufferJData; //buffer contenente il messaggi das inviare nel formato JData
 		
 	delete sendAckBuffer; //buffer degli ack da inviare
@@ -424,25 +413,32 @@ void Jack::execute(String message) { //funzione che gestisce il protocollo
 		
 		if (messageJData->getString(MESSAGE_TYPE).equals(MESSAGE_TYPE_DATA)) {
 		
-			Serial.println("check MEX GIA RICEVUTO mex ricevuto");
+			//Serial.println("check MEX GIA RICEVUTO mex ricevuto");
 		
 			if (!checkMessageAlreadyReceived(messageJData)) {
 			
-				Serial.println("MEX RICEVUTO trigger");
+				//Serial.println("MEX RICEVUTO trigger");
 				
 				(* onReceive) (messageJData->getJData(MESSAGE_DATA));
 			}
 			
 		} else {
-			Serial.println("CHECK mex ricevuto");
+			//Serial.println("CHECK mex ricevuto");
 			checkAck(messageJData);
 		}
 		
 		
-		Serial.println("elimino JData mex ricevuto");
+		//Serial.println("elimino JData mex ricevuto");
 		delete messageJData;
 		
 	}
+	
+	/*conferma test memoria*/
+			
+	//Serial.print("memoria dopo conferma: ");
+	//Serial.println(freeMemory());
+			
+	/*fine conferma test memoria*/
 		
 }
 
@@ -499,23 +495,18 @@ void Jack::checkAck(JData * message) { //controlla l'ack
 				sendMessageBuffer->remove(id);
 			}
 			
-			//Serial.println("message Confirmed");
-			Serial.println("CONFIRM RICEVUTO trigger");
+			if (sendMessageTimer->containsKey(id)) { //rimuovo il timer se presente3
+				sendMessageTimer->remove(id);
+			}
+			
+			Serial.println("message Confirmed");
+			//Serial.println("CONFIRM RICEVUTO trigger");
 			(* onReceiveAck) (sendMessageBufferJData->getValue(id));
 			
-			Serial.println("elimino JData messaggio inviato");
+			//Serial.println("elimino JData messaggio inviato");
 			delete sendMessageBufferJData->getValue(id);
 			
-			sendMessageBufferJData->remove(id);
-			
-			
-			/*conferma test memoria*/
-			
-			Serial.print("memoria dopo conferma: ");
-			Serial.println(freeMemory());
-			
-			/*fine conferma test memoria*/
-			
+			sendMessageBufferJData->remove(id);			
 			
 		}
 		
@@ -581,9 +572,9 @@ void Jack::sendMessagePollingFunction() { //" " " per inviare i messaggi
 						mmJTM->send(sendMessageBuffer->getValue()); //invio il messaggio
 						
 						
-						Serial.println("Elimino timer resend");
+						//Serial.println("Elimino timer resend");
 						sendMessageTimer->remove(key);
-						Serial.println("Eliminato");
+						//Serial.println("Eliminato");
 						
 						sendMessageTimer->put(key, millis());
 						
@@ -591,7 +582,7 @@ void Jack::sendMessagePollingFunction() { //" " " per inviare i messaggi
 				
 				
 				} else { //messaggio da inviare per la prima volta
-					Serial.println("First send");
+					//Serial.println("First send");
 					mmJTM->send(sendMessageBuffer->getValue()); //invio il messaggio
 					
 					if (!SEND_ONE_TIME) {//controllo se non è da inviare una volta sola
@@ -673,8 +664,8 @@ void Jack::send(JData * message) { //invia il messaggio
 
 JData * Jack::getJDataMessage(String message) { //preleva i dati dal messaggio e crea il messaggio nel formato JData
 	
-	Serial.print("JDATAGET: ");
-	Serial.println(freeMemory());
+	//Serial.print("JDATAGET: ");
+	//Serial.println(freeMemory());
 	
 	
 	JData * messageJData = new JData();
@@ -712,7 +703,7 @@ JData * Jack::getJDataMessage(String message) { //preleva i dati dal messaggio e
 			
 			messageJData->addLong(MESSAGE_ID, lw.getLong());
 			
-			Serial.println("id: " + temp);
+			//Serial.println("id: " + temp);
 			
 			
 		} else if (message.startsWith(MESSAGE_TYPE_ACK)) { //ack

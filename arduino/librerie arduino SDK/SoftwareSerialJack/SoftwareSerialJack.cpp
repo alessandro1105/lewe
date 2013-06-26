@@ -13,7 +13,7 @@ SoftwareSerialJack::SoftwareSerialJack(int RX, int TX, long baudRate) {
 	
 	softwareSerial->begin(baudRate);
 	
-	
+	/*
 	//svuoto il buffer
 	Serial.println("Svuoto buffer");
 	
@@ -33,6 +33,7 @@ SoftwareSerialJack::SoftwareSerialJack(int RX, int TX, long baudRate) {
 	Serial.println("Contenuto del buffer: ");
 	Serial.println(buffer);
 	Serial.println("");
+	*/
 }
 
 SoftwareSerialJack::~SoftwareSerialJack() {
@@ -66,11 +67,11 @@ int SoftwareSerialJack::available() { //restituisce true se ci sono dati da elab
 	
 		messageBuffer += char(softwareSerial->read());
 	  
-		Serial.println(messageBuffer);
+		//Serial.println(messageBuffer);
     }
 
-	Serial.print("		time: ");
-	Serial.println(millis());
+	//Serial.print("		time: ");
+	//Serial.println(millis());
 	
 	return 1;
 	
@@ -123,9 +124,9 @@ String SoftwareSerialJack::receive() { //deve restituire il messaggio da passare
 	} //fine prelievo messaggio
 	
 	
-	Serial.println(messageBuffer);
+	//Serial.println(messageBuffer);
 	
-	Serial.println("message ricevuto MMJTM: " + message);
+	//Serial.println("message ricevuto MMJTM: " + message);
 		
 	return message; //restituisco il messaggio o stringa vuota}
 	
