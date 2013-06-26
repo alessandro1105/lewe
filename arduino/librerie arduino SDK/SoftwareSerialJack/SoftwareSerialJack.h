@@ -22,6 +22,7 @@ class SoftwareSerialJack : public JTrasmissionMethod {
 	public:
 	
 		SoftwareSerialJack(int RX, int TX, long baudRate);
+		~SoftwareSerialJack();
 		
 		String receive(); //deve restituire il messaggio da passare a Jack
 		void send(String message); //invia il messaggio

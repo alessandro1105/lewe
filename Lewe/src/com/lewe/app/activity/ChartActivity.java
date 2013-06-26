@@ -379,6 +379,7 @@ public class ChartActivity extends Activity {
 		mCurrentRenderer.setColor(Color.BLUE);
 		
 		
+		
 	}
 	
 	
