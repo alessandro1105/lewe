@@ -1,3 +1,5 @@
+#include <MemoryFree.h>
+
 /*
 Copyright [2013] [Lewe]
 
@@ -118,6 +120,7 @@ int sensorState;
 
 //JACK
 void onReceive(JData * message) {} //funzione richiamata alla ricezione di un messaggio dati
+
 void onReceiveAck(JData * message) {} //funzione richiamata alla conferma di un messaggio
 
 
@@ -430,13 +433,23 @@ void setup() {
   }
   
   sleepSensor(); //addormento i sensori
-  
-  //wakeupSensor();
  
   timeLastSurvey = millis(); //imposto la variabile con il tempo così il prossimo invio è tra 10 
   
   
-  //Serial.println(getTimestamp());
+  
+  
+  wakeupSensor();
+  
+  
+  Serial.print("memoria prima rilevazione: ");
+  Serial.println(freeMemory());
+  
+  getSurvey(); //prelevo le rilevazioni e le invio
+  
+  
+  Serial.print("memoria dopo rilevazione: ");
+  Serial.println(freeMemory());
   
 }
   
@@ -453,7 +466,7 @@ void loop() {
   Serial.println(dw.getString()); //creo un nuovo wrapper con la temperatura convertita in stringa con un decimale
   
   //getTemperature();
-  
+    
   delay(1000);
   
   */
@@ -464,6 +477,8 @@ void loop() {
   
   jack->loop(); //funzione che invia i messaggi e riceve i messaggi (simulazione thread)
   
+  
+  /*
   long now = millis();
   
   if (now - timeLastSurvey > INTERVAL_BETWEEN_SURVEY) { //scaduto il tempo di attesa tra invii (invio la rilevazione)
@@ -488,5 +503,5 @@ void loop() {
     wakeupSensor();
    
   }
-
+  */
 }

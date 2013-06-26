@@ -15,6 +15,10 @@ class HashType {
 		HashType(){
 			reset();
 		}
+		
+		~HashType(){ //distruttore
+			
+		}
 	
 		HashType(hash code,map value): hashCode(code), mappedValue(value){}
 	
@@ -62,6 +66,12 @@ class HashNode {
 			
 			next = 0;
 		
+		}
+		
+		~HashNode() { //distruttore
+		
+			delete hashType;
+			
 		}
 		
 		HashType<hash, map> * getHashType() {
@@ -143,13 +153,13 @@ class HashMap {
 			} else { //più di un elemento presente
 			
 				if (pointer == start) { //elemto da rimuovere è la testa
-				
+					
 					start = start->getNext();
 				
 					start->setPrevius(0);
 				
 				} else if (pointer == finish) { //elemnto da rimuovere è la coda
-				
+					
 					finish = finish->getPrevius();
 					
 					finish->setNext(0);
@@ -165,6 +175,12 @@ class HashMap {
 			}
 			
 			size--;
+			
+			
+			//Serial.println("dealloc");
+			
+			
+			delete pointer;
 			
 		}
 		
