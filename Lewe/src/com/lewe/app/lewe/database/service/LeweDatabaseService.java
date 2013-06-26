@@ -244,70 +244,75 @@ public class LeweDatabaseService extends Service {
 					
 					long keyQueryBuffer = iter.next();
 					
-					String querySQL = queryBuffer.get(keyQueryBuffer).getValue1(); //query da eseguire
-	    			
-	    			String addressForResult = queryBuffer.get(keyQueryBuffer).getValue2(); //intent receiver per il risultato
-	    			
-	    			
-	    			Logger.d("LDS", querySQL);
-	    			
-	    			
-	    			Cursor databaseCursor = database.executeQuery(querySQL); //eseguo la query
-	    			
-	    			Logger.d("LDS", "query executed");
-	    					    			
-	    			if (databaseCursor != null && databaseCursor.moveToFirst() && addressForResult != "") { //se ci sono dati da inviare
-	    				
-	    				DatabaseResult result = new DatabaseResult(); //coontenitore dati db
-	    				
-	    				do {
-	    					
-	    					int recordIndex = result.addRecord(); //indice del record nel contenitore
-	    					
-	    					for (String key: databaseCursor.getColumnNames()) {
-	    						
-	    						int fieldIndex = databaseCursor.getColumnIndex(key); //indice campo nel db
-	    						
-	    						if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_STRING) { //string
-	    							
-	    							result.addRecordField(recordIndex, key, databaseCursor.getString(fieldIndex));
-	    							
-	    						} else if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_FLOAT) { //float
-	    							
-	    							result.addRecordField(recordIndex, key, new Double(databaseCursor.getFloat(fieldIndex)));
-	    							
-	    						} if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_INTEGER) { //integer
-	    								
-	    							result.addRecordField(recordIndex, key, new Long(databaseCursor.getInt(fieldIndex)));
-	    							
-	    						}
-	    						
-	    					}
-	    					
-	    					
-	    				} while (databaseCursor.moveToNext()); //scorro i dati 
-	    				
-	    				databaseCursor.close(); //chiudo il cursore del db
-	    				
-	    				
-	    				Intent intentResult = new Intent(addressForResult); //creo intent di ritorno con i dati
-    					
-    					intentResult.putExtra(QUERY_RESULT, result); //insertisco il risultato della query nell'intent
-    					
-    					sendBroadcast(intentResult); //invio l'intent
-    					
-    					
-    					Logger.d("LDS", "result intent send");
-    					
-    					
-    					
-	    				
-	    			}
-	    						
+					if (queryBuffer.get(keyQueryBuffer) != null) {
 					
-	    			//keyToRemove.put(++keyQueryToRemove, keyQueryBuffer);
-	    			
-					iter.remove(); //elimino la query dal buffer perchè eseguita
+						String querySQL = queryBuffer.get(keyQueryBuffer).getValue1(); //query da eseguire
+		    			
+		    			String addressForResult = queryBuffer.get(keyQueryBuffer).getValue2(); //intent receiver per il risultato
+		    			
+		    			
+		    			Logger.d("LDS", querySQL);
+		    			
+		    			
+		    			Cursor databaseCursor = database.executeQuery(querySQL); //eseguo la query
+		    			
+		    			Logger.d("LDS", "query executed");
+		    					    			
+		    			if (databaseCursor != null && databaseCursor.moveToFirst() && addressForResult != "") { //se ci sono dati da inviare
+		    				
+		    				DatabaseResult result = new DatabaseResult(); //coontenitore dati db
+		    				
+		    				do {
+		    					
+		    					int recordIndex = result.addRecord(); //indice del record nel contenitore
+		    					
+		    					for (String key: databaseCursor.getColumnNames()) {
+		    						
+		    						int fieldIndex = databaseCursor.getColumnIndex(key); //indice campo nel db
+		    						
+		    						if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_STRING) { //string
+		    							
+		    							result.addRecordField(recordIndex, key, databaseCursor.getString(fieldIndex));
+		    							
+		    						} else if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_FLOAT) { //float
+		    							
+		    							result.addRecordField(recordIndex, key, new Double(databaseCursor.getFloat(fieldIndex)));
+		    							
+		    						} if (databaseCursor.getType(fieldIndex) == databaseCursor.FIELD_TYPE_INTEGER) { //integer
+		    								
+		    							result.addRecordField(recordIndex, key, new Long(databaseCursor.getInt(fieldIndex)));
+		    							
+		    						}
+		    						
+		    					}
+		    					
+		    					
+		    				} while (databaseCursor.moveToNext()); //scorro i dati 
+		    				
+		    				databaseCursor.close(); //chiudo il cursore del db
+		    				
+		    				
+		    				Intent intentResult = new Intent(addressForResult); //creo intent di ritorno con i dati
+	    					
+	    					intentResult.putExtra(QUERY_RESULT, result); //insertisco il risultato della query nell'intent
+	    					
+	    					sendBroadcast(intentResult); //invio l'intent
+	    					
+	    					
+	    					Logger.d("LDS", "result intent send");
+	    					
+	    					
+	    					
+		    				
+		    			}
+		    						
+						
+		    			//keyToRemove.put(++keyQueryToRemove, keyQueryBuffer);
+		    			
+						//iter.remove(); //elimino la query dal buffer perchè eseguita
+		    			
+		    			queryBuffer.put(keyQueryBuffer, null);
+					}
 					
 				}
 				

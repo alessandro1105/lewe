@@ -12,6 +12,34 @@ SoftwareSerialJack::SoftwareSerialJack(int RX, int TX, long baudRate) {
 	softwareSerial = new SoftwareSerial(RX, TX);
 	
 	softwareSerial->begin(baudRate);
+	
+	/*
+	//svuoto il buffer
+	Serial.println("Svuoto buffer");
+	
+	String buffer = "";
+	int time = millis();
+	
+	Serial.println(millis());
+	
+	while (millis() - time < 20)  {
+		while (softwareSerial->available() > 0) {
+			buffer += char(softwareSerial->read());
+		}
+	}
+	
+	Serial.println(millis());
+	
+	Serial.println("Contenuto del buffer: ");
+	Serial.println(buffer);
+	Serial.println("");
+	*/
+}
+
+SoftwareSerialJack::~SoftwareSerialJack() {
+	
+	delete softwareSerial;
+	
 }
 
 void SoftwareSerialJack::send(String message) { //invia il messaggio
@@ -32,6 +60,19 @@ void SoftwareSerialJack::send(String message) { //invia il messaggio
 
 int SoftwareSerialJack::available() { //restituisce true se ci sono dati da elaborare
 
+	////Serial.print("new: ");
+    while (softwareSerial->available() > 0) { //scarico i caratteri ricevuti nel buffer
+	
+		//char c = char(softwareSerial->read());
+	
+		messageBuffer += char(softwareSerial->read());
+	  
+		//Serial.println(messageBuffer);
+    }
+
+	//Serial.print("		time: ");
+	//Serial.println(millis());
+	
 	return 1;
 	
 }
@@ -43,16 +84,6 @@ String SoftwareSerialJack::receive() { //deve restituire il messaggio da passare
 	int nCharIncorrect = 0; //caratteri incorretti all'inizio
 	int nCharMessage = 0; //caratteri del mesaggio
 	
-	////Serial.print("new: ");
-    while (softwareSerial->available() > 0) { //scarico i caratteri ricevuti nel buffer
-	
-		//char c = char(softwareSerial->read());
-	
-		messageBuffer += char(softwareSerial->read());
-	  
-		////Serial.print(c);
-    }
-	
 	//if (messageBuffer.length() > 0) //Serial.println(messageBuffer);
 			
 	//controllo che non ci siani caratteri non validi prima del messaggio (mi fermo quando trovo il char di inizio)
@@ -62,11 +93,16 @@ String SoftwareSerialJack::receive() { //deve restituire il messaggio da passare
 			
 	}					
 	
+	messageBuffer = messageBuffer.substring(nCharIncorrect);
+	
+	
 	////Serial.println(nCharIncorrect);
 	
-	if (nCharIncorrect < messageBuffer.length()) { //trovato il carattere di inizio messaggio
+	//Serial.print("test initchar");
+	
+	if (messageBuffer.length() > 0 && messageBuffer.charAt(0) == MESSAGE_START_CHARACTER) { //messaggio con almeno 1 carattere e primo carattere è il carattere di inizio messaggio
 				
-		for (int i = nCharIncorrect + 1; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_FINISH_CHARACTER; i++) {
+		for (int i = 1; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_FINISH_CHARACTER; i++) {
 			nCharMessage++;
 				
 			message += messageBuffer.charAt(i);
@@ -74,25 +110,23 @@ String SoftwareSerialJack::receive() { //deve restituire il messaggio da passare
 		}
 				
 				
-		if ((nCharIncorrect + nCharMessage + 2) < messageBuffer.length() && messageBuffer.charAt(nCharIncorrect + nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
+		if ((nCharMessage + 2) <= messageBuffer.length() && messageBuffer.charAt(nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
 					
 			//E' presente un messaggio
-			nCharMessage += 2;
+			messageBuffer = messageBuffer.substring(nCharMessage + 2); //elimino dal bufffer il messaggio
 					
 		} else {
 					
-			//non è presente un messaggio azzero message e il numero dei suoi caratteri
-			message = "";
-			nCharMessage = 0;
+			message = ""; //non è presente un messaggio azzero il messaggio da restituire
 					
 		}
 				
 	} //fine prelievo messaggio
-			
-			
-	messageBuffer = messageBuffer.substring(nCharIncorrect + nCharMessage); //elimino il messaggio e i caratteri errati dal buffer;
-		
-		//if (message.length() > 0) Serial.println("message ricevuto: " + message);
+	
+	
+	//Serial.println(messageBuffer);
+	
+	//Serial.println("message ricevuto MMJTM: " + message);
 		
 	return message; //restituisco il messaggio o stringa vuota}
 	
