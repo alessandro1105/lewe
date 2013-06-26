@@ -29,13 +29,13 @@
 	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_EMAIL"
 	        android:title="@string/preference_activity_web_cloud_email_title"
 	        android:summary="@string/preference_activity_web_cloud_email_summary" 
-	        android:defaultValue="ale@ale.it" />
+	        android:defaultValue="" />
     	
     	<EditTextPreference
 	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_PASSWORD"
 	        android:title="@string/preference_activity_web_cloud_password_title"
 	        android:summary="@string/preference_activity_web_cloud_password_summary" 
-	        android:defaultValue="alepas1105" />
+	        android:defaultValue="" />
     	
     	<EditTextPreference
 	        android:key="@string/SHARED_PREFERENCES_WEB_CLOUD_URL"
