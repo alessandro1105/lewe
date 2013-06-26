@@ -361,6 +361,8 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
     	
     	message = MESSAGE_START_CHARACTER + message + MESSAGE_FINISH_CHARACTER;
     	
+    	Logger.e("BSS", message);
+    	
     	write(message);
 		
 	}
@@ -396,6 +398,8 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 				
 				;
 			
+			
+			
 			//controllo che non ci siani caratteri non validi prima del messaggio (mi fermo quando trovo il char di inizio)
 			for(int i = 0; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_START_CHARACTER; i++) {
 				
@@ -403,8 +407,9 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 			
 			}
 			
+			messageBuffer = messageBuffer.substring(nCharIncorrect); //elimino i caratteri errati prima del mex
 						
-			if (nCharIncorrect < messageBuffer.length()) { //trovato il carattere di inizio messaggio
+			if (messageBuffer.length() > 0 && messageBuffer.charAt(0) == MESSAGE_START_CHARACTER) { //messaggio con almeno 1 carattere e primo carattere è il carattere di inizio messaggio
 				
 				
 				for (int i = nCharIncorrect + 1; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_FINISH_CHARACTER; i++) {
@@ -415,23 +420,21 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 				}
 				
 				
-				if ((nCharIncorrect + nCharMessage + 2) < messageBuffer.length() && messageBuffer.charAt(nCharIncorrect + nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
+				if ((nCharMessage + 2) <= messageBuffer.length() && messageBuffer.charAt(nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
 					
 					//E' presente un messaggio
-					nCharMessage += 2;
+					messageBuffer = messageBuffer.substring(nCharMessage); //elimino il mex dal buffer
 					
 				} else {
 					
-					//non è presente un messaggio azzero message e il numero dei suoi caratteri
-					message = "";
-					nCharMessage = 0;
+					
+					message = ""; //non è presente un messaggio azzero il messaggio da restituire
 					
 				}
 				
 			} //fine prelievo messaggio
 			
 			
-			messageBuffer = messageBuffer.substring(nCharIncorrect + nCharMessage);
 			
 			if (mConnectedThread != null) {
 				mConnectedThread.setPause(false); //riabilito la ricezione
