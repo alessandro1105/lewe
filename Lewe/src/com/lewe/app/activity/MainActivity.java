@@ -1,14 +1,13 @@
 package com.lewe.app.activity;
 
-
 import com.lewe.app.R;
 import com.lewe.app.config.Config;
-import com.lewe.app.database.Database;
-import com.lewe.app.lewe.database.service.LeweDatabaseService;
 import com.lewe.app.lewe.service.LeweService;
 import com.lewe.app.logger.Logger;
+import com.lewe.app.thread.safe.ThreadSafe;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,13 +21,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 	
-	public static final String INTENT_FILTER_DATA_FROM_DATABASE = "com.lewe.app.MainActivity.DATA_FROM_DATABASE";
+	public static final long TIMER_POLLING = 1000; // 2 sec
 	
 	
 	//variabili usate per verificare se il bt è abilitato o è necessario abilitarlo
@@ -40,8 +38,10 @@ public class MainActivity extends Activity {
 	
 	//broadcast receiver
 	BroadcastReceiver exitReceiver; //bcr per comando uscita
-	BroadcastReceiver newData; //bcr per nuovi dati da LEWE
 	
+	
+	//thread per refresh gui
+	RefreshGUIThread refreshGUIThread;
 	
 	
 	//icone sensori
@@ -101,7 +101,7 @@ public class MainActivity extends Activity {
 		
 		
 		
-		//prelevato dal db (se non disponibile Nd)
+		//prelevato dalle preferenze (se non disponibile Nd)
 		sensorTemperature.setValue(sharedPreferences.getString(Config.SENSOR_KEY_TEMPERATURE, getString(R.string.sensor_value_not_available))); //prelevo i valori dalle preferenze
 		sensorGsr.setValue(sharedPreferences.getString(Config.SENSOR_KEY_GSR, getString(R.string.sensor_value_not_available))); //prelevo i valori dalle preferenze
 		
@@ -172,46 +172,16 @@ public class MainActivity extends Activity {
 		
 		registerReceiver(exitReceiver, new IntentFilter(ExitActivity.INTENT_FILTER));
 		
-		
-		
-		//bcr per la ricezione di nuovi dati dal dipositrivo LEWE
-		newData = new BroadcastReceiver() {
-
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				// TODO Auto-generated method stub
-						
-				Bundle extras = intent.getExtras();
-				
-				SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(MainActivity.this).edit(); //editor preferenze
-						
-				//verifico se sono arrivati nuovi dati per sensore temperatura e li imposto
-				if (extras.containsKey(Config.SENSOR_KEY_TEMPERATURE)) {
-					sensorTemperature.setValue("" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "°C");
-							
-					sharedPreferencesEditor.putString(Config.SENSOR_KEY_TEMPERATURE, "" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + " °C");		
-							
-				}
-						
-				//verifico se sono arrivati nuovi dati per sensore gsr e li imposto
-				if (extras.containsKey(Config.SENSOR_KEY_GSR)) {
-					sensorGsr.setValue("" + extras.getLong(Config.SENSOR_KEY_GSR) + " %");
-					
-					sharedPreferencesEditor.putString(Config.SENSOR_KEY_GSR, "" + extras.getLong(Config.SENSOR_KEY_GSR ) + " %");
-				}
-				
-				
-				
-				sharedPreferencesEditor.commit(); //salvo le preferenze
-				
-			}
-			
-		};
-		
-		registerReceiver(newData, new IntentFilter(LeweService.INTENT_FILTER_NEW_DATA));	
-		
 		//FINE DICHIARAZIONE BCR
 		
+		
+		
+		//THREAD PER REFRESH DELLA GUI
+		refreshGUIThread = new RefreshGUIThread(TIMER_POLLING);
+		
+		refreshGUIThread.startThread();
+		
+		//FINE THREAD
 		
 		
 		
@@ -301,9 +271,9 @@ public class MainActivity extends Activity {
 		Logger.d("MA", "distruzione...");
 		
 		
-		unregisterReceiver(exitReceiver); //scollego bcr per comando chiusura
+		refreshGUIThread.stopThread(); //fermo il thread di refresh della GUI
 		
-		unregisterReceiver(newData); //scollego receiver per i nuovi dati
+		unregisterReceiver(exitReceiver); //scollego bcr per comando chiusura
 		
 		
 		Logger.d("MA", "distrutto");
@@ -381,6 +351,45 @@ public class MainActivity extends Activity {
 		
 		
 	}
+	
+	//thread per refresh grafica (al posto di ricevere intent nuovi dati)
+	private class RefreshGUIThread extends ThreadSafe {
+				
+		public RefreshGUIThread(long timerPolling) {
+				super(timerPolling);
+				// TODO Auto-generated constructor stub
+		}
+
+
+		@Override
+		public void execute() {
+			
+			Handler mainHandler = new Handler(MainActivity.this.getMainLooper());
+
+			Runnable updateGUICode = new Runnable() {
+
+				@Override
+				public void run() {
+					
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this); //usato per prelevare dati dei sensori on load		
+					
+					synchronized(MainActivity.this) {
+						sensorTemperature.setValue(sharedPreferences.getString(Config.SENSOR_KEY_TEMPERATURE, getString(R.string.sensor_value_not_available))); //prelevo i valori dalle preferenze
+						sensorGsr.setValue(sharedPreferences.getString(Config.SENSOR_KEY_GSR, getString(R.string.sensor_value_not_available))); //prelevo i valori dalle preferenze
+					
+					}
+					
+					
+				}
+				
+			};
+		
+			
+			mainHandler.post(updateGUICode);
+		}
+
+				
+	}//fine thread	
     
     
 }

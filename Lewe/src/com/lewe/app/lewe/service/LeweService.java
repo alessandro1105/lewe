@@ -109,11 +109,40 @@ public class LeweService extends Service {
 		    			//inoltro l'intent dati ricevuto da LBS a tutti quelli che devono riceve i dati a cui resta trasparente la fonte
 		    			
 		    			
+		    			//aggiorno i dati per la gui main
+		    			Bundle extras = intentDataReceived.getExtras();
+						
+						SharedPreferences.Editor sharedPreferencesEditor = PreferenceManager.getDefaultSharedPreferences(LeweService.this).edit(); //editor preferenze
+								
+						//verifico se sono arrivati nuovi dati per sensore temperatura e li imposto
+						if (extras.containsKey(Config.SENSOR_KEY_TEMPERATURE)) {
+							//sensorTemperature.setValue("" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "°C");
+									
+							sharedPreferencesEditor.putString(Config.SENSOR_KEY_TEMPERATURE, "" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + " °C");		
+									
+						}
+								
+						//verifico se sono arrivati nuovi dati per sensore gsr e li imposto
+						if (extras.containsKey(Config.SENSOR_KEY_GSR)) {
+							//sensorGsr.setValue("" + extras.getLong(Config.SENSOR_KEY_GSR) + " %");
+							
+							sharedPreferencesEditor.putString(Config.SENSOR_KEY_GSR, "" + extras.getLong(Config.SENSOR_KEY_GSR ) + " %");
+						}
+						
+						sharedPreferencesEditor.commit(); //salvo le preferenze
+		    			
+						
+						
+						
+		    			
+		    			//inoltro i dati ricevuti
 		    			Intent intent = new Intent(LeweService.INTENT_FILTER_NEW_DATA);
 		    			
 		    			intent.putExtras(intentDataReceived.getExtras());
 		    			
 		    			sendBroadcast(intent);
+		    			
+		    					    			
 		    			
 		    			Logger.d("LS", "intent data sent");
 		    				
@@ -712,7 +741,7 @@ public class LeweService extends Service {
 				querySQL = "INSERT INTO " + Database.TABLE_SENSOR + "(" + Database.FIELD_SENSOR_NAME + "," + Database.FIELD_SENSOR_VALUE;
 				querySQL += "," + Database.FIELD_TIMESTAMP + "," + Database.FIELD_UPDATED + ") VALUES(";
 				
-				querySQL += "\"" + Config.SENSOR_KEY_TEMPERATURE + "\"" + ",\"" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "\"," + extras.getLong(Config.SENSOR_KEY_TIMESTAMP);
+				querySQL += "\"" + Config.SENSOR_KEY_TEMPERATURE + "\"" + ",\"" + extras.getDouble(Config.SENSOR_KEY_TEMPERATURE) + "\"," + (extras.getLong(Config.SENSOR_KEY_TIMESTAMP));
 				
 				querySQL += ",0);";
 				
@@ -731,7 +760,7 @@ public class LeweService extends Service {
 				querySQL += "INSERT INTO " + Database.TABLE_SENSOR + "(" + Database.FIELD_SENSOR_NAME + "," + Database.FIELD_SENSOR_VALUE;
 				querySQL += "," + Database.FIELD_TIMESTAMP + "," + Database.FIELD_UPDATED + ") VALUES(";
 				
-				querySQL += "\"" + Config.SENSOR_KEY_GSR + "\"" + ",\"" + extras.getLong(Config.SENSOR_KEY_GSR) + "\"," + extras.getLong(Config.SENSOR_KEY_TIMESTAMP);
+				querySQL += "\"" + Config.SENSOR_KEY_GSR + "\"" + ",\"" + extras.getLong(Config.SENSOR_KEY_GSR) + "\"," + (extras.getLong(Config.SENSOR_KEY_TIMESTAMP));
 				
 				querySQL += ",0);";
 				

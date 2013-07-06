@@ -32,6 +32,8 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 	//buffer messaggi string
 	private String messageBuffer = "";
 	
+	private boolean bufferAvailable = true;//variabile per controllare accesso al buffer
+	
 	
 	private static final char MESSAGE_START_CHARACTER = '<'; //carattere inzio messaggio
 	private static final char MESSAGE_FINISH_CHARACTER = '>';//carattere fine messaggio
@@ -222,41 +224,31 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
      * Stop all threads
      */
     public synchronized void stop() {
-        Logger.d(TAG, "stop");
+    	
+    	stop(true);
         
-        setAutoConnection(false); //setto l'autoconnesione a false
+    }
+    
+    private synchronized void stop(boolean stopAutoConnection) {
+    	Logger.d(TAG, "stop");
+        
+    	
+    	if (stopAutoConnection)
+    		setAutoConnection(false); //setto l'autoconnesione a false
 
         if (mConnectThread != null) {
         	mConnectThread.cancel(); 
-        	//mConnectThread = null;
+        	mConnectThread = null;
         }
 
         if (mConnectedThread != null) {
         	mConnectedThread.cancel(); 
-        	//mConnectedThread = null;
+        	mConnectedThread = null;
         }
 
         setState(STATE_NONE);
     }
-    
-    public synchronized void stopForAutoconnect() {
-        Logger.d(TAG, "stop");
-        
-        //setAutoConnection(false); //setto l'autoconnesione a false
 
-        if (mConnectThread != null) {
-        	mConnectThread.cancel(); 
-        	//mConnectThread = null;
-        }
-
-        if (mConnectedThread != null) {
-        	mConnectedThread.cancel(); 
-        	//mConnectedThread = null;
-        }
-
-        setState(STATE_NONE);
-    }
-    
 
     /**
      * Write to the ConnectedThread in an unsynchronized manner
@@ -306,37 +298,7 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
     	
     }
     
-    private void autoconnect() {
-    	
-    	if (autoConnection && getState() == STATE_NONE) { //controllo se devo tentare l'autoconnessione
-    		
-    		Thread execute = new Thread() {
-    			
-    			public void run() {
-    				
-    				try {
-						Thread.sleep(TIMER_RECONNECT);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-    				
-    				
-    				BluetoothSerialService.this.stopForAutoconnect();
-    				
-    				BluetoothSerialService.this.connect(deviceAddress);
-    			}
-    			
-    		};
-    		
-    		execute.start();
-    		
-    		
-    		
-    	}
-    	
-    	
-    }
+    
 
     /**
      * Indicate that the connection was lost and notify the UI Activity.
@@ -356,11 +318,50 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
     }
     
     
+    
+    private void autoconnect() { //metodo per l'autoconnessione
+    	
+    	if (autoConnection && getState() == STATE_NONE) { //controllo se devo tentare l'autoconnessione
+    		
+    		Thread execute = new Thread() {
+    			
+    			public void run() {
+    				
+    				try {
+						Thread.sleep(TIMER_RECONNECT);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    				
+    				
+    				BluetoothSerialService.this.stop(false);
+    				
+    				BluetoothSerialService.this.start();
+    				
+    				BluetoothSerialService.this.connect(deviceAddress);
+    			}
+    			
+    		};
+    		
+    		execute.start();
+    		
+    		
+    		
+    	}
+    	
+    	
+    }
+    
+    
+    
     //implementazione metodi dell'interfaccia JTrasmissionMethod
     @Override
 	public void send(String message) {
     	
     	message = MESSAGE_START_CHARACTER + message + MESSAGE_FINISH_CHARACTER;
+    	
+    	Logger.e("BSS", message);
     	
     	write(message);
 		
@@ -391,6 +392,14 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 				mConnectedThread.setPause(true); //metto in pausa la ricezione dei messaggi
 			}
 			
+			
+			
+			while (bufferAvailable) //ciclo di attesa per il buffer disponibile
+				
+				;
+			
+			
+			
 			//controllo che non ci siani caratteri non validi prima del messaggio (mi fermo quando trovo il char di inizio)
 			for(int i = 0; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_START_CHARACTER; i++) {
 				
@@ -398,8 +407,9 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 			
 			}
 			
+			messageBuffer = messageBuffer.substring(nCharIncorrect); //elimino i caratteri errati prima del mex
 						
-			if (nCharIncorrect < messageBuffer.length()) { //trovato il carattere di inizio messaggio
+			if (messageBuffer.length() > 0 && messageBuffer.charAt(0) == MESSAGE_START_CHARACTER) { //messaggio con almeno 1 carattere e primo carattere è il carattere di inizio messaggio
 				
 				
 				for (int i = nCharIncorrect + 1; i < messageBuffer.length() && messageBuffer.charAt(i) != MESSAGE_FINISH_CHARACTER; i++) {
@@ -410,23 +420,21 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
 				}
 				
 				
-				if ((nCharIncorrect + nCharMessage + 2) < messageBuffer.length() && messageBuffer.charAt(nCharIncorrect + nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
+				if ((nCharMessage + 2) <= messageBuffer.length() && messageBuffer.charAt(nCharMessage + 2 - 1) == MESSAGE_FINISH_CHARACTER) {
 					
 					//E' presente un messaggio
-					nCharMessage += 2;
+					messageBuffer = messageBuffer.substring(nCharMessage); //elimino il mex dal buffer
 					
 				} else {
 					
-					//non è presente un messaggio azzero message e il numero dei suoi caratteri
-					message = "";
-					nCharMessage = 0;
+					
+					message = ""; //non è presente un messaggio azzero il messaggio da restituire
 					
 				}
 				
 			} //fine prelievo messaggio
 			
 			
-			messageBuffer = messageBuffer.substring(nCharIncorrect + nCharMessage);
 			
 			if (mConnectedThread != null) {
 				mConnectedThread.setPause(false); //riabilito la ricezione
@@ -518,7 +526,6 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
         
         private boolean pause = false; //variabile che mette in pausa la ricezione (usata nell passaggio dei dati con getMessage())
         private boolean stop = false; //usata per richiedere la chiusura della connessione
-        private boolean bufferAvailable = true; //variabile usata per sapere se il buffer è disponibile o occupato in operazione di riempimento
         
 
         public ConnectedThread(BluetoothSocket socket) {
@@ -553,7 +560,7 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
             	
             	while (!pause && !stop) {
             		
-            		bufferAvailable = false; //buffer occupato in operazioni di scrittura
+            		setBufferState(false); //buffer occupato in operazioni di scrittura
             		
             		try {
             			// Read from the InputStream
@@ -561,9 +568,11 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
             			
             		} catch (IOException e) {
             			
-            			Logger.e(TAG, "disconnected", e);
+            			Logger.e(TAG, "bluetooth device DISCONNECTED");
             			
-            			connectionLost();
+            			cancel(); //invoco la chiusura del thread (chiusura socket)
+            			
+            			connectionLost(); //funzione per gestire la connessione 
             			
             			break;
             			
@@ -582,31 +591,34 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
                     	
                     	                
             		} //fine sincronizzazione
+            		
+            		Logger.e("BSS", "paused");
                      
             	} //fine ciclo riempimento buffer
             	
-            	bufferAvailable = true; //indico che il buffer è disponibile
+            	if (!getBufferState())
+            	
+            		setBufferState(true); //indico che il buffer è disponibile
             	
             	Logger.e("BSS", "paused");
             	
             } //fine cliclo vuoto
             
-            /*
-            try {
+            /*try {
             	
-            	Logger.e("BSS", "closing socket...");
+            	Logger.e("BSS", "chiusura socket...");
             	
                 mmSocket.close(); //chiudo il socket
                 
-                Logger.e("BSS", "socket closed");
+                Logger.e("BSS", "socket chiuso");
                 
             } catch (IOException e) {
-                Logger.e(TAG, "close() of connect socket failed", e);
+                Logger.e(TAG, "chiusura socket fallita!", e);
             }
             */
         }
 
-
+        
         public void write(byte[] buffer) { //scrive il buffer del parametro nel socket (invia i dati tramite bt)
             try {
                 mmOutStream.write(buffer);
@@ -618,23 +630,28 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
         
 
         public void cancel() { //termina il socket appena possibile
+        	
            stop = true; //richiedo la chiusura del socket appena possibile
            
-           //da eliminare 
+           Logger.e("BSS", "stopping..");
+           
+           
            try {
            	
-           	Logger.e("BSS", "closing socket...");
+        	   Logger.e("BSS", "chiusura socket...");
            	
                mmSocket.close(); //chiudo il socket
                
-               Logger.e("BSS", "socket closed");
+               Logger.e("BSS", "socket chiuso");
                
            } catch (IOException e) {
-               Logger.e(TAG, "close() of connect socket failed", e);
+               Logger.e(TAG, "chiusura socket fallita!", e);
            }
            
            
+           
            Logger.e("BSS", "stopped");
+        
         }
         
         
@@ -644,10 +661,18 @@ public abstract class BluetoothSerialService implements JTrasmissionMethod {
         	
         }
         
-        public boolean bufferAvailable() {
+        
+        private boolean getBufferState() {
         	
-        	return bufferAvailable;
+        	return BluetoothSerialService.this.bufferAvailable;
         	
         }
+        
+        private void setBufferState(boolean available) {
+        
+        	BluetoothSerialService.this.bufferAvailable = available;
+        	
+        }
+        
     }
 }

@@ -353,10 +353,10 @@ public class ChartActivity extends Activity {
 		mRenderer.setXTitle("\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + getString(R.string.sensor_x_title)); //y titolo
 		mRenderer.setYTitle(getString(R.string.sensor_temperature_y_title)); //x titolo
 		
-		mRenderer.setYAxisMin(34); //min y
-		mRenderer.setYAxisMax(43); //max y
+		mRenderer.setYAxisMin(30); //min y
+		mRenderer.setYAxisMax(45); //max y
 		
-		mRenderer.setYLabels(18); //n label (n = (max-Min)/scala)
+		mRenderer.setYLabels(15); //n label (n = (max-Min)/scala)
 		
 		mCurrentRenderer.setColor(Color.RED);
 		
@@ -377,6 +377,7 @@ public class ChartActivity extends Activity {
 		mRenderer.setYLabels(20); //n label (n = (max-Min)/scala)
 		
 		mCurrentRenderer.setColor(Color.BLUE);
+		
 		
 		
 	}
@@ -429,14 +430,17 @@ public class ChartActivity extends Activity {
 		mCurrentSeries.add(nItemAdded, value); //aggiungo il dato al grafico
 		
 		
-		if (nItemAdded == 5) {
-			
-			mRenderer.setXLabelsAngle(20);
-			
-		} else if (mRenderer.getXLabelsAngle() < 90) {
-			
-			mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
-			
+		if (nItemAdded > 4) {
+		
+			if (nItemAdded == 5) {
+				
+				mRenderer.setXLabelsAngle(20);
+				
+			} else if (mRenderer.getXLabelsAngle() < 90) {
+				
+				mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
+				
+			}
 		}
 		
 		
@@ -456,14 +460,17 @@ public class ChartActivity extends Activity {
 		mCurrentSeries.add(nItemAdded, value); //aggiungo il grafico al dato
 		
 		
-		if (nItemAdded == 5) {
+		if (nItemAdded > 4) {
 			
-			mRenderer.setXLabelsAngle(20);
-			
-		} else if (mRenderer.getXLabelsAngle() < 90) {
-			
-			mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
-			
+			if (nItemAdded == 5) {
+				
+				mRenderer.setXLabelsAngle(20);
+				
+			} else if (mRenderer.getXLabelsAngle() < 90) {
+				
+				mRenderer.setXLabelsAngle(mRenderer.getXLabelsAngle() + 5);
+				
+			}
 		}
 		
 	}

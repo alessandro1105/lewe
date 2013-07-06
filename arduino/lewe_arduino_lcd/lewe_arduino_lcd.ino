@@ -33,8 +33,8 @@ Copyright [2013] [Lewe]
 //COSTANTI
 
 //GENERALI
-const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
-//const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
+//const long INTERVAL_BETWEEN_SURVEY = 30000; //DEBUG
+const long INTERVAL_BETWEEN_SURVEY = 300000; //5 min (tempo in ms)
 
 const int DEBUG = 1; //1 stampa info di debug, 0 non stampa niente
 
@@ -51,7 +51,7 @@ const int TEMP_PIN = A0; //pin sensore
 const int GSR_SWITCH_PIN = 7; //pin per comandare l'accensione
 const int GSR_PIN = A1; //pin del sensore
 //commentato senza analogReference
-const int GSR_MIN = 620;//220; //valore minimo
+const int GSR_MIN = 620;//220; //valore minimo aq
 const int GSR_MAX = 1023;//640; //valore max
 
 
@@ -118,6 +118,7 @@ int sensorState;
 
 //JACK
 void onReceive(JData * message) {} //funzione richiamata alla ricezione di un messaggio dati
+
 void onReceiveAck(JData * message) {} //funzione richiamata alla conferma di un messaggio
 
 
@@ -158,6 +159,11 @@ long getGSR() { //preleva il valore del sensore GSR
   gsr = (int) (gsr * 100.0 / (GSR_MAX - GSR_MIN));
  
   
+  if (DEBUG) {
+    Serial.print("GSR: ");   
+    Serial.println(gsr);  
+  }
+  
   return gsr; //ritorno il valore in percentuale
 }
 
@@ -165,6 +171,13 @@ long getGSR() { //preleva il valore del sensore GSR
 double getTemperature() { //preleva il valore della temperatura da LM35 con 1 cifra dopo la virgola
   
   double temp = analogRead(TEMP_PIN); //prelevo la lettura dal sensore
+  
+  if (DEBUG) {
+    Serial.print("Temperature tick: ");   
+    Serial.println(temp); 
+  }
+  
+  
   
   temp = (temp * 1.1 / 1023.0) * 100.0; //converto la temperatura letta in gradi
   
@@ -423,45 +436,19 @@ void setup() {
   }
   
   sleepSensor(); //addormento i sensori
-  
-  //wakeupSensor();
  
   timeLastSurvey = millis(); //imposto la variabile con il tempo così il prossimo invio è tra 10 
-  
-  
-  //Serial.println(getTimestamp());
   
 }
   
 
 void loop() {
-  /*
-  wakeupSensor();
-  
-  Serial.println(getTemperature());
-  
-  Serial.println(getGSR());
-  
-  delay(1000);
-  
-  Serial.print("GSR: ");
-  Serial.println(getGSR());
-  
-  Serial.print("Temp: ");
-  Serial.println(getTemperature());
-  
-  Serial.println();
-  Serial.println();
-  
-  delay(1000);
-  
-  */
-  
   
   tickLCD();
   
   
   jack->loop(); //funzione che invia i messaggi e riceve i messaggi (simulazione thread)
+  
   
   long now = millis();
   
@@ -487,5 +474,6 @@ void loop() {
     wakeupSensor();
    
   }
-
+  
+  
 }

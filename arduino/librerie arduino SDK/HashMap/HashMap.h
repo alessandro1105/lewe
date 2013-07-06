@@ -15,8 +15,16 @@ class HashType {
 		HashType(){
 			reset();
 		}
+		
+		~HashType(){ //distruttore
+		
+			//Serial.println("HashType destructing...");
+			//hashCode.~hash();
+			//hashCode.~hash();
+			//Serial.println("HashType destruct");
+		}
 	
-		HashType(hash code,map value): hashCode(code), mappedValue(value){}
+		HashType(hash code, map value): hashCode(code), mappedValue(value){}
 	
 		void reset(){
 			hashCode = 0; mappedValue = 0;
@@ -56,12 +64,22 @@ class HashNode {
 
 	public:
 
-		HashNode(HashType<hash, map> * value): hashType(value) {
+		HashNode(hash code, map value) {
+		
+			hashType = new HashType<hash, map>(code, value);
 		
 			previus = 0;
 			
 			next = 0;
 		
+		}
+		
+		~HashNode() { //distruttore
+			//Serial.println("HashNode destructing...");
+			
+			delete hashType;
+			
+			//Serial.println("HashNode destruct");
 		}
 		
 		HashType<hash, map> * getHashType() {
@@ -121,7 +139,7 @@ class HashMap {
 			
 				HashType<hash, map> * hashType = pointer->getHashType();
 		
-				if (key ==  hashType->getHash()) {
+				if (key == hashType->getHash()) {
 				
 					return pointer;
 				
@@ -136,20 +154,22 @@ class HashMap {
 		
 		void remove(HashNode<hash, map> * pointer) { //rimuove l'elemento selezionato
 		
-			if (size < 2) { //1 elemento presente 1 elemento da eliminare
+			if (size == 1) { //1 elemento presente 1 elemento da eliminare
+				
+				//Serial.println("1 solo: remove p");
 				
 				start = finish = 0;
 				
 			} else { //più di un elemento presente
 			
 				if (pointer == start) { //elemto da rimuovere è la testa
-				
+					
 					start = start->getNext();
 				
 					start->setPrevius(0);
 				
 				} else if (pointer == finish) { //elemnto da rimuovere è la coda
-				
+					
 					finish = finish->getPrevius();
 					
 					finish->setNext(0);
@@ -166,6 +186,12 @@ class HashMap {
 			
 			size--;
 			
+			
+			//Serial.println("dealloc");
+			
+			
+			delete pointer;
+			
 		}
 		
 		
@@ -181,15 +207,36 @@ class HashMap {
 			
 		}
 		
+		~HashMap(){	//distruttore
+		
+			//Serial.println("HashMap destructing...");
+			//Serial.print("n: ");
+			//Serial.println(length());
+			
+			if (moveToFirst()) {
+				
+				do {
+					
+					remove();
+					
+				} while (moveToNext());
+			
+			}
+			
+			
+			//Serial.println("HashMap destruct");
+			
+		}
+		
 		void put(hash key, map value) { //inserisce un nuovo nodo contenente i dati
 			
 			if (start == 0) {
 				
-				start = finish = new HashNode<hash, map>(new HashType<hash, map>(key, value));
+				start = finish = new HashNode<hash, map>(key, value);
 				
 			} else {
 				
-				HashNode<hash, map> * temp = new HashNode<hash, map>(new HashType<hash, map>(key, value));
+				HashNode<hash, map> * temp = new HashNode<hash, map>(key, value);
 				
 				finish->setNext(temp);
 				
@@ -341,7 +388,9 @@ class HashMap {
 		
 			if (position != 0) {
 			
-				if (size < 2) { //1 ele 1 da rimuovere
+				if (size == 1) { //1 ele 1 da rimuovere					
+					
+					//Serial.println("1 solo: remove");
 					
 					remove(position);
 					
@@ -353,7 +402,7 @@ class HashMap {
 					
 						remove(position);
 					
-						position = 0;
+						position = start;
 				
 					} else {
 					
@@ -364,6 +413,7 @@ class HashMap {
 					}
 				
 				}
+			
 			}
 			
 		}
